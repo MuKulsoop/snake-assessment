@@ -1,36 +1,32 @@
-var path = require('path')
-var loadCss = require('webpack-loadcss');
-const port = process.env.PORT || 3000
+const path = require('path');
+const port = process.env.PORT || 3000;
 
 module.exports = {
-    mode: 'development',
-    entry: path.resolve(__dirname, 'index.js'),
-	output: {
-        path: path.resolve(__dirname, 'public'),
-        filename: 'bundle.js',
-	},
-    plugins: [loadCss],
-	module: {
-		rules: [
-			{
-                test: /\.(js|jsx)?$/,
-                exclude: /node_modules/,
-                use: "babel-loader"
-			},
-			{
-                test: /\.css/,
-                use: ['style-loader', 'css-loader']
-			},
-        ]
-    },
-    devServer: {
-        contentBase: path.resolve(__dirname, 'public'),
-        host: 'localhost',
-        port: port,
-        historyApiFallback: true,
-        open: true,
-        transportMode: 'ws',
-        injectClient: false
+  mode: 'development',
+  entry: path.resolve(__dirname, 'index.js'),
+  output: {
+    path: path.resolve(__dirname, 'public'),
+    filename: 'bundle.js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)?$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
       },
-    devtool: 'inline-source-map'
-}
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
+  devServer: {
+    static: path.resolve(__dirname, 'public'),
+    host: 'localhost',
+    port,
+    historyApiFallback: true,
+    open: true,
+  },
+  devtool: 'inline-source-map',
+};
